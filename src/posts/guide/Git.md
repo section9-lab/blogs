@@ -16,7 +16,7 @@ sticky: true
 
 ## 1 GitFlow规范
 
-![GitFlow](../../docs/.vuepress/public/gitflow.png)
+![GitFlow](../../.vuepress/public/assets/images/gitflow.png)
 
 ```text
 # 1 Master 分支

@@ -1,17 +1,13 @@
 ---
-title: Features demo
+title: 集装箱
 index: false
 icon: laptop-code
 category:
-  - Guide
+  - 使用指南
 ---
 
-## Catalog
+## 目录
 
-- [Markdown Enhance](markdown.md)
+- [Markdown 展示](markdown.md)
 
-- [Page Config](page.md)
-
-- [Function Disable](disable.md)
-
-- [Encryption Demo](encrypt.md)
+- [加密展示](encrypt.md)

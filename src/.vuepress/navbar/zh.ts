@@ -1,52 +1,38 @@
 import { navbar } from "vuepress-theme-hope";
 
 export const zhNavbar = navbar([
-  "/zh/",
-  "/zh/demo/",
+  "/",
+  "/demo/",
   {
     text: "博文",
     icon: "pen-to-square",
-    prefix: "/zh/posts/",
+    prefix: "/posts/",
     children: [
       {
-        text: "苹果",
+        text: "指南",
         icon: "pen-to-square",
-        prefix: "apple/",
-        children: [
-          { text: "苹果1", icon: "pen-to-square", link: "1" },
-          { text: "苹果2", icon: "pen-to-square", link: "2" },
-          "3",
-          "4",
-        ],
-      },
-      {
-        text: "香蕉",
-        icon: "pen-to-square",
-        prefix: "banana/",
+        prefix: "guide/",
         children: [
           {
-            text: "香蕉 1",
+            text: "bash",
             icon: "pen-to-square",
-            link: "1",
+            link: "Bash",
           },
           {
-            text: "香蕉 2",
+            text: "Git",
             icon: "pen-to-square",
-            link: "2",
+            link: "Git",
           },
-          "3",
-          "4",
+          "Docker",
+          "Redis",
+          "LinuxTools",
+          "KafkaConf",
         ],
       },
-      { text: "樱桃", icon: "pen-to-square", link: "cherry" },
-      { text: "火龙果", icon: "pen-to-square", link: "dragonfruit" },
-      "tomato",
-      "strawberry",
+      { text: "REST-API", icon: "pen-to-square", link: "REST-API" },
+      { text: "SimpleProject", icon: "pen-to-square", link: "SimpleProject" },
+      "Java8-Feat",
+      "Json-MsgPack",
     ],
-  },
-  {
-    text: "V2 文档",
-    icon: "book",
-    link: "https://theme-hope.vuejs.press/zh/",
   },
 ]);

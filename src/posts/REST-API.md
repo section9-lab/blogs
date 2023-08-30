@@ -20,7 +20,7 @@ sticky: true
 - 发生错误时，不要返回 200 状态码
 - 业务异常http状态码需要定义为 402
 
-```
+```txt
 GET：读取（Read）
 POST：新建（Create）
 PUT：更新（Update）
@@ -29,7 +29,7 @@ DELETE：删除（Delete）
 ```
 
 状态码：
-```
+```txt
 1xx：相关信息
 2xx：操作成功
 3xx：重定向

@@ -10,7 +10,7 @@ export default hopeTheme({
 
   author: {
     name: "Section9lab",
-    url: "https://section9-lab.github.io/blogs/",
+    url: "https://github.com/section9lab/",
   },
 
   iconAssets: "fontawesome-with-brands",
@@ -31,7 +31,6 @@ export default hopeTheme({
       Twitter: "https://example.com",
       Wechat: "https://example.com",
       Zhihu: "https://example.com",
-      MrHope: ["https://mister-hope.com", MR_HOPE_AVATAR],
     },
   },
 

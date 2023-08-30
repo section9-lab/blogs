@@ -15,7 +15,7 @@ sticky: true
 ---
 
 ## config
-```
+```java
 public class ReliableProducer {
 
    public static void main(String[] args) {
@@ -54,7 +54,6 @@ public class ReliableProducer {
 
       // 关闭 producer
       producer.close();
-
    }
 }
 ```

@@ -16,8 +16,12 @@ sticky: true
 # Docker
 ## 安装docker
 
-<CodeGroup>
-  <CodeGroupItem title="ubuntu_docker_install.sh" active>
+docker_install.sh
+
+::: code-tabs#bash
+
+@tab ubuntu
+
 
 ```bash
 #!/usr/bin/bash
@@ -33,9 +37,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 ```
 
-  </CodeGroupItem>
-
-  <CodeGroupItem title="centos_docker_install.sh">
+@tab CentOS
 
 ```bash
 #!/usr/bin/bash
@@ -54,8 +56,7 @@ systemctl enable docker.service
 systemctl restart docker
 ```
 
-  </CodeGroupItem>
-</CodeGroup>
+:::
 
 ## 启动docker
 ```bash

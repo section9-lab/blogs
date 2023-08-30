@@ -18,32 +18,22 @@ sticky: true
 maven
 ```xml
 <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>2.9.6</version>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.9.6</version>
 </dependency>
 
 <dependency>
-        <groupId>org.msgpack</groupId>
-        <artifactId>jackson-dataformat-msgpack</artifactId>
-        <version>0.9.0</version>
+    <groupId>org.msgpack</groupId>
+    <artifactId>jackson-dataformat-msgpack</artifactId>
+    <version>0.9.0</version>
 </dependency>
 ```
 
-java code
-```java
-ObjectMapper msgPackMapper = new ObjectMapper(new MessagePackFactory());
-ObjectMapper jsonMapper = new ObjectMapper(new JsonFactory());
-
-#str2obj
-Test testObj = jsonMapper.readerFor(Test.class).readValue(str);
-Test testObj = msgPackMapper.readValue(str, Test.class);
-
-#obj2str
-
-```
-
 JacksonUtil
+
+> .setSerializationInclusion(JsonInclude.Include.NON_NULL);空值不参与序列化。
+
 ```java
 public class JsonKit {
     private static final ObjectMapper MsagePakMapper = new ObjectMapper(new MessagePackFactory());
@@ -131,6 +121,5 @@ public class JsonKit {
             throw new RuntimeException(e);
         }
     }
-
 }
 ```

@@ -9,7 +9,7 @@ star: true
 sticky: true
 ---
 
-# NGINX
+# Nginx
 
 [[toc]]
 

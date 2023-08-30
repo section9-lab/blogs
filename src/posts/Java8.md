@@ -10,7 +10,7 @@ star: true
 sticky: true
 ---
 
-# Java8-Feat
+# Java8
 
 [[toc]]
 ---
@@ -98,7 +98,7 @@ public class SupplierDemo {
 }
 ```
 ## 二、Stream
-### 1.1 预定义数据
+### 2.1 预定义数据
 ```java
 @Data
 @AllArgsConstructor
@@ -116,13 +116,12 @@ students.add(new Student("2", "李四", LocalDate.of(2010, Month.FEBRUARY, 2), 1
 students.add(new Student("3", "王五", LocalDate.of(2011, Month.MARCH, 3), 10, 32.123));
 ```
 
-### 1.2 数据统计
-#### 1.2.1 元素数量：counting
+### 2.2.1 元素数量：counting
 ```java
 students.stream().collect(Collectors.counting())
 ```
 
-#### 1.2.2 平均值：averagingDouble、averagingInt、averagingLong
+### 2.2.2 平均值：averagingDouble、averagingInt、averagingLong
 ```java
 students.stream().collect(Collectors.averagingDouble(Student::getScore))
 
@@ -134,7 +133,7 @@ students.stream().collect(Collectors.averagingDouble(Student::getAge))
 students.stream().collect(Collectors.averagingLong(Student::getAge))
 ```
 
-#### 1.2.3 和：summingDouble、summingInt、summingLong
+### 2.2.3 和：summingDouble、summingInt、summingLong
 ```java
 students.stream().collect(Collectors.summingInt(s -> (int)s.getScore()))
 students.stream().collect(Collectors.summingDouble(Student::getScore))
@@ -145,7 +144,7 @@ students.stream().collect(Collectors.summingDouble(Student::getAge))
 students.stream().collect(Collectors.summingLong(Student::getAge))
 ```
 
-#### 1.2.4 最大值/最小值元素：maxBy、minBy
+### 2.2.4 最大值/最小值元素：maxBy、minBy
 ```java
 // Optional[Student(id=3, name=王五, birthday=2011-03-03, age=10, score=32.123)]，注意返回类型是Optional
 students.stream().collect(Collectors.minBy(Comparator.comparing(Student::getAge)))
@@ -153,7 +152,7 @@ students.stream().collect(Collectors.minBy(Comparator.comparing(Student::getAge)
 students.stream().collect(Collectors.maxBy(Comparator.comparing(Student::getAge)))
 ```
 
-#### 1.2.5 统计结果：summarizingDouble、summarizingInt、summarizingLong
+### 2.2.5 统计结果：summarizingDouble、summarizingInt、summarizingLong
 ```java
 // IntSummaryStatistics{count=3, sum=66, min=12, average=22.000000, max=32}
 students.stream().collect(Collectors.summarizingInt(s -> (int) s.getScore()))
@@ -170,8 +169,7 @@ students.stream().collect(Collectors.summarizingDouble(Student::getAge))
 students.stream().collect(Collectors.summarizingLong(Student::getAge))
 ```
 
-### 1.3 聚合、分组
-#### 1.3.1 聚合元素：toList、toSet、toCollection
+### 2.3.1 聚合元素：toList、toSet、toCollection
 ```java
 // List: [1, 2, 3]
 final List<String> idList = students.stream().map(Student::getId).collect(Collectors.toList());
@@ -181,7 +179,7 @@ final Set<String> idSet = students.stream().map(Student::getId).collect(Collecto
 final Collection<String> idTreeSet = students.stream().map(Student::getId).collect(Collectors.toCollection(TreeSet::new));
 ```
 
-#### 1.3.2 聚合元素：toMap、toConcurrentMap
+### 2.3.2 聚合元素：toMap、toConcurrentMap
 ```java
 // {1=Student(id=1, name=张三, birthday=2009-01-01, age=12, score=12.123), 2=Student(id=2, name=李四, birthday=2010-02-02, age=11, score=22.123), 3=Student(id=3, name=王五, birthday=2011-03-03, age=10, score=32.123)}
 final Map<String, Student> map11 = students.stream()
@@ -200,7 +198,7 @@ final Map<Integer, Student> map5 = students.stream()
     .collect(Collectors.toMap(Student::getAge, Function.identity(), BinaryOperator.maxBy(Comparator.comparing(Student::getScore))));
 ```
 
-#### 1.3.3 分组：groupingBy、groupingByConcurrent
+### 2.3.3 分组：groupingBy、groupingByConcurrent
 ```java
 // List: {10=[Student(id=3, name=王五, birthday=2011-03-03, age=10, score=32.123)], 11=[Student(id=2, name=李四, birthday=2010-02-02, age=11, score=22.123)], 12=[Student(id=1, name=张三, birthday=2009-01-01, age=12, score=12.123)]}
 final Map<Integer, List<Student>> map1 = students.stream().collect(Collectors.groupingBy(Student::getAge));
@@ -217,7 +215,7 @@ final Map<String, Student> map2 = students.stream()
 ```
 
 
-#### 1.3.4 分组：partitioningBy
+### 2.3.4 分组：partitioningBy
 ```java
 // List: {false=[Student(id=2, name=李四, birthday=2010-02-02, age=11, score=22.123), Student(id=3, name=王五, birthday=2011-03-03, age=10, score=32.123)], true=[Student(id=1, name=张三, birthday=2009-01-01, age=12, score=12.123)]}
 final Map<Boolean, List<Student>> map6 = students.stream().collect(Collectors.partitioningBy(s -> s.getAge() > 11));
@@ -225,7 +223,7 @@ final Map<Boolean, List<Student>> map6 = students.stream().collect(Collectors.pa
 final Map<Boolean, Set<Student>> map7 = students.stream().collect(Collectors.partitioningBy(s -> s.getAge() > 11, Collectors.toSet()));
 ```
 
-#### 1.3.5 链接数据：joining
+### 2.3.5 链接数据：joining
 ```java
 // javagosql
 Stream.of("java", "go", "sql").collect(Collectors.joining());
@@ -235,7 +233,7 @@ Stream.of("java", "go", "sql").collect(Collectors.joining(", "));
 Stream.of("java", "go", "sql").collect(Collectors.joining(", ", "【", "】"));
 ```
 
-#### 1.3.6 操作链：collectingAndThen
+### 2.3.6 操作链：collectingAndThen
 ```java
 // {1=Student(id=1, name=张三, birthday=2009-01-01, age=12, score=12.123), 2=Student(id=2, name=李四, birthday=2010-02-02, age=11, score=22.123), 3=Student(id=3, name=王五, birthday=2011-03-03, age=10, score=32.123)}
 final Map<String, Student> map3 = students.stream()
@@ -257,7 +255,7 @@ students.stream()
 ```
 
 
-#### 1.3.7 操作后聚合：mapping
+### 2.3.7 操作后聚合：mapping
 ```java
 // [张三, 李四, 王五]
 students.stream()
@@ -269,7 +267,7 @@ students.stream()
         .collect(Collectors.toList());
 ```
 
-#### 1.3.8 聚合后操作：reducing
+### 2.3.8 聚合后操作：reducing
 ```java
 // Optional[66.369]，注意返回类型是Optional
 students.stream()
@@ -291,34 +289,31 @@ students.stream().map(Student::getScore).reduce(0.0, Double::sum);
 ## 三、Optional
 主要作用是消除 NullPointException
 
-<CodeGroup>
-  <CodeGroupItem title="JAVA7" active>
+::: code-tabs#java
+
+@tab Java7
 
 ```java
 List<String> list = getList();
 List<String> listOpt = list != null ? list : new ArrayList<>();
 ```
 
-  </CodeGroupItem>
-
-  <CodeGroupItem title="JAVA8">
+@tab Java8
 
 ```java
 List<String> listOpt = Optional.ofNullable(getList())
         .orElse(new ArrayList<>());
 ```
 
-  </CodeGroupItem>
-</CodeGroup>
-
+:::
 
 **举例:**
 假设，我们有一个User类，内部有个Address类，在内部有个street属性，我们现在想要获取一个User对象的street值。如果是以前，我们需要各种判断是否是null，代码会写成这样：
 
-      
-<CodeGroup>
-  <CodeGroupItem title="JAVA7" active>    
-      
+::: code-tabs#java
+
+@tab Java7
+
 ```java
 User user = getUser();
 if (user != null) {
@@ -332,10 +327,8 @@ if (user != null) {
 }
 return "not specified";
 ```
-      
-  </CodeGroupItem>
 
-  <CodeGroupItem title="JAVA8">
+@tab Java8
 
 ```java
 String result = Optional.ofNullable(getUser())
@@ -343,14 +336,76 @@ String result = Optional.ofNullable(getUser())
         .map(Address::getStreet)
         .orElse("not specified");
 ```
-      
-  </CodeGroupItem>
-</CodeGroup>
-## 3 Time
 
+:::
+
+## 四、Time
+在旧版的 Java 中，日期时间 API 存在诸多问题：
+
+- 非线程安全,所有的日期类都是可变的。
+
+- 设计很差，java.util.Date同时包含日期和时间，而java.sql.Date仅包含日期，用于格式化和解析的类在java.text包中定义。
+
+- 时区处理麻烦，因此Java引入了java.util.Calendar和java.util.TimeZone类，但他们同样存在上述所有的问题。
+
+> Java 8 在 java.time 包下提供了很多新的 API。
+### 4.1 LocalDateTime
+```java
+// 获取当前的日期时间
+LocalDateTime currentTime = LocalDateTime.now();
+System.out.println("当前时间: " + currentTime);
+        
+LocalDate date1 = currentTime.toLocalDate();
+System.out.println("date1: " + date1);
+        
+Month month = currentTime.getMonth();
+int day = currentTime.getDayOfMonth();
+int seconds = currentTime.getSecond();
+        
+System.out.println("月: " + month +", 日: " + day +", 秒: " seconds);
+        
+LocalDateTime date2 = currentTime.withDayOfMonth(10).withYe(2012);
+System.out.println("date2: " + date2);
+        
+// 12 december 2014
+LocalDate date3 = LocalDate.of(2014, Month.DECEMBER, 12);
+System.out.println("date3: " + date3);
+        
+// 22 小时 15 分钟
+LocalTime date4 = LocalTime.of(22, 15);
+System.out.println("date4: " + date4);
+        
+// 解析字符串
+LocalTime date5 = LocalTime.parse("20:15:30");
+System.out.println("date5: " + date5);
 ```
-
+输出：
+```txt
+当前时间: 2016-04-15T16:55:48.668
+date1: 2016-04-15
+月: APRIL, 日: 15, 秒: 48
+date2: 2012-04-10T16:55:48.668
+date3: 2014-12-12
+date4: 22:15
+date5: 20:15:30
 ```
-
+### 4.2 ZonedDateTime
+```java
+// 获取当前时间日期
+ZonedDateTime date1 = ZonedDateTime.parse("2015-12-03T10:15:30+05:30[Asia/Shanghai]");
+System.out.println("date1: " + date1);
+        
+ZoneId id = ZoneId.of("Europe/Paris");
+System.out.println("ZoneId: " + id);
+        
+ZoneId currentZone = ZoneId.systemDefault();
+System.out.println("当期时区: " + currentZone);
+```
+输出：
+```txt
+date1: 2015-12-03T10:15:30+08:00[Asia/Shanghai]
+ZoneId: Europe/Paris
+当期时区: Asia/Shanghai
+```
 
 [参考]https://xie.infoq.cn/article/df361a1280773d32208550293

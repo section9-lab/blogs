@@ -5,34 +5,44 @@ export const zhNavbar = navbar([
   "/demo/",
   {
     text: "博文",
-    icon: "pen-to-square",
+    icon: "book",
     prefix: "/posts/",
     children: [
       {
         text: "指南",
-        icon: "pen-to-square",
+        icon: "book",
         prefix: "guide/",
         children: [
-          {
-            text: "bash",
-            icon: "pen-to-square",
-            link: "Bash",
-          },
-          {
-            text: "Git",
-            icon: "pen-to-square",
-            link: "Git",
-          },
+          "LinuxTools",
+          "Bash",
           "Docker",
           "Redis",
-          "LinuxTools",
-          "KafkaConf",
+          "Kafka",
+          "Git",
         ],
       },
-      { text: "REST-API", icon: "pen-to-square", link: "REST-API" },
-      { text: "SimpleProject", icon: "pen-to-square", link: "SimpleProject" },
-      "Java8-Feat",
+      "REST-API",
+      "SimplifyProject",
+      "Java8",
       "Json-MsgPack",
     ],
+  },
+  {
+    text: "设计模式",
+    icon: "book",
+    prefix: "/design/",
+    children: [
+      "01",
+      "02"
+    ]
+  },
+  {
+    text: "Flink",
+    icon: "book",
+    prefix: "/flink/",
+    children: [
+      "01",
+      "02"
+    ]
   },
 ]);

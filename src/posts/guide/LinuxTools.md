@@ -35,6 +35,23 @@ curl -H "Content-Type: application/json" -XPOST localhost:8080/user \
       "age":18,
       "timestamp":"168318059133"}'
 ```
+
+## sdkman
+```sh
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk version
+
+sdk list java
+sdk install java 8.0.382-zulu
+
+sdk default java 8.0.382-zulu
+sdk current java 
+sdk use java 8.0.382-zulu
+
+java -version
+```
+
 ## tcpdump
 ```bash
 #(1) 捕获指定源地址和目的地址及端口

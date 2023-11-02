@@ -123,7 +123,7 @@ esac
 read -p "请输入用户名" NAME
 printf '%s\n' $NAME
 
-if [[ $NAME = root ]]; then
+if [[ $NAME = root ]] || [[ $NAME =~ "usr" ]]; then
     echo "欢迎你 ${NAME}"
 elif [[ $NAME = magic ]]; then
     echo "欢迎你，${NAME}"          

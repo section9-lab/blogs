@@ -202,6 +202,9 @@ firewall-cmd --zone=public --add-rich-rule 'rule family="ipv4" source address="1
 
 #允许来自主机 10.1.0.3 到 80 端口的 IPv4 的 TCP 流量，并将流量转发到 6532 端口上。 
 firewall-cmd --zone=public --add-rich-rule 'rule family=ipv4 source address=10.1.0.3 forward-port port=80 protocol=tcp to-port=6532'
+
+#删除规则
+firewall-cmd --zone=public --remove-rich-rule 'rule family=ipv4 source address=10.1.0.3 forward-port port=80 protocol=tcp to-port=6532'
 ```
 ## tmux
 ### 安装

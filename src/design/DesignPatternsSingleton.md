@@ -9,7 +9,7 @@ star: true
 sticky: true
 ---
 
-# Design Patterns Overview
+# Design Patterns Singleton
 # 一、创建型模式：
 
 ## 1、单例模式

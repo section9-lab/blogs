@@ -9,7 +9,7 @@ star: true
 sticky: true
 ---
 
-# Design Patterns Overview
+# Design Patterns Factory
 # 一、创建型模式：
 
 ## 2、工厂模式

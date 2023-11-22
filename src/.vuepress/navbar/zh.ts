@@ -28,6 +28,14 @@ export const zhNavbar = navbar([
     ],
   },
   {
+    text: "数据结构",
+    icon: "book",
+    prefix: "/data/",
+    children: [
+      "DataStructures"
+    ]
+  },
+  {
     text: "设计模式",
     icon: "book",
     prefix: "/design/",

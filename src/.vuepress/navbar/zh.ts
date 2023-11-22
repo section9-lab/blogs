@@ -2,7 +2,6 @@ import { navbar } from "vuepress-theme-hope";
 
 export const zhNavbar = navbar([
   "/",
-  "/demo/",
   {
     text: "博文",
     icon: "book",
@@ -43,7 +42,11 @@ export const zhNavbar = navbar([
     prefix: "/flink/",
     children: [
       "Flink-RunTime",
-      "Flink-Time"
+      "Flink-Time",
+      "Flink-Checkpoint",
+      "Flink-YarnK8s",
+      "Flink-Serializer",
+      "Flink-Job"
     ]
   },
 ]);

@@ -32,8 +32,9 @@ export const zhNavbar = navbar([
     icon: "book",
     prefix: "/design/",
     children: [
-      "01",
-      "02"
+      "DesignPatternsOverview",
+      "DesignPatternsSingleton",
+      "DesignPatternsFactory"
     ]
   },
   {

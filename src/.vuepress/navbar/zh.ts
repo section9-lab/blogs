@@ -42,8 +42,8 @@ export const zhNavbar = navbar([
     icon: "book",
     prefix: "/flink/",
     children: [
-      "01",
-      "02"
+      "Flink-RunTime",
+      "Flink-Time"
     ]
   },
 ]);

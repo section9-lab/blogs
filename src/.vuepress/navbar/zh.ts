@@ -17,7 +17,6 @@ export const zhNavbar = navbar([
           "Redis",
           "Kafka",
           "LinuxTools",
-          "JavaScript",
           "Kubernetes",
         ],
       },

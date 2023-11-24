@@ -14,7 +14,7 @@ sticky: true
 [[toc]]
 ---
 
-## 1 GitFlow规范
+## GitFlow规范
 
 ![GitFlow](../../.vuepress/public/assets/images/gitflow.png)
 
@@ -25,19 +25,16 @@ sticky: true
 版本发布从合并后的主分支上打tag
 
 # 2 Develop 分支
-这个分支是开发分支，新增功能时候需要基于开发分支切分出 Feature 或以自己命名的分支，
-所有的Feature或命名分支都是从这个分支切出去的。
+这个分支是开发分支，新增功能时候需要基于开发分支切分出 Feature 或以自己命名的分支，所有的Feature或命名分支都是从这个分支切出去的。
 而 Feature 或命名分支的功能完成后，都会再合并到这个分支上来。
 
 # 3 Hotfix 分支
-客户的现场产品版本发生紧急故障时候,会从Master分支开一个Hotfix分支进行修复,
-Hotfix 修复完成后要再合并到Master和Develop 分支。
+客户的现场产品版本发生紧急故障时候,会从Master分支开一个Hotfix分支进行修复,Hotfix 修复完成后要再合并到Master和Develop 分支。
 为什么合并回Dev分支？防止Dev合并到Master分支会被覆盖,故障再次出现。
 为什么不在Dev分支修复？Dev还在开发,会有其他未知风险。
 
 # 4 Release 分支
-Develop分支成熟后可以合并到 Release 分支。
-做完最后的测试 Release 分支将会同时合并到 Master 以及 Develop 這两个分支上。
+Develop分支成熟后可以合并到 Release 分支。做完最后的测试 Release 分支将会同时合并到 Master 以及 Develop 這两个分支上。
 
 # 5 Feature||name 分支
 Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Develop 分支。
@@ -48,18 +45,19 @@ Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Devel
 其中release属于开发阶段用于质量测试的临时分支，feature属于开发过程中新作的功能，hotfix属于发布版本后再发现的问题修复
 
 
-## 2 git commit 规范
+## commit 规范
 
-### 2.1 格式
+### 格式
 
 ```text
 <type>(<scope>): <subject>
-# 空一行
+空一行
 <body>
-# 空一行
+空一行
 <footer>
 ```
 
+### 参数
 ```text
 #### type
 - feat：新特性
@@ -83,17 +81,16 @@ Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Devel
 - 须关闭的Jira号或者链接
 ```
 
-### 2.2 案例说明
+## 案例说明
 
-#### 冒号后和<subject>要加一个空格，目的是在IDEA历史记录里看上去干净
-
+### 冒号后和<subject>要加一个空格，目的是在IDEA历史记录里看上去干净
 ```text
 feat: 用户查询接口开发 Close#RM-23412
+
 fix(UserService): 用户查询缺少username属性 Close#BUG-23412
 ```
 
-#### 如果subject无法说明本次提交可以考虑body描述详细信息
-
+### 如果subject无法说明本次提交可以考虑body描述详细信息
 ```text
 feat: 客户交易金额同步至风控平台
 

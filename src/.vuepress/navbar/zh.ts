@@ -8,9 +8,9 @@ export const zhNavbar = navbar([
     prefix: "/posts/",
     children: [
       {
-        text: "指南",
+        text: "工具",
         icon: "book",
-        prefix: "guide/",
+        prefix: "tools/",
         children: [
           "Git",
           "Docker",
@@ -39,7 +39,7 @@ export const zhNavbar = navbar([
         children: [
           "REST-API",
           "FastAPI",
-          "Json-MsgPack",
+          "JsonMsgPack",
           "SimplifyProject",
         ],
       },

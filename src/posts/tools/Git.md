@@ -104,7 +104,7 @@ Close#RM-23412
 ### 3.1 概念
 
 ### 3.2 案例
-```yml
+```text
 name: CI
 
 on:

@@ -5,6 +5,7 @@ category:
   - Tools
 tag:
   - tools
+  - git
 star: true
 sticky: true
 ---
@@ -12,15 +13,15 @@ sticky: true
 # Git
 
 [[toc]]
+---
 
-## GitFlow规范
+## 1 GitFlow规范
 
 ![GitFlow](../../.vuepress/public/assets/images/gitflow.png)
 
 ```text
 # 1 Master 分支
-提供基础分支，其他版本随时从主分支切分出去做版本开发;
-只能从release和hotfix分支合并过来，研发不可直接commit到主分支。
+提供基础分支，其他版本随时从主分支切分出去做版本开发;只能从release和hotfix分支合并过来，研发不可直接commit到主分支。
 版本发布从合并后的主分支上打tag
 
 # 2 Develop 分支
@@ -38,25 +39,20 @@ Develop分支成熟后可以合并到 Release 分支。做完最后的测试 Rel
 # 5 Feature||name 分支
 Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Develop 分支。
 ```
-```text
-常驻分支只有两个master、develop; 
-其中master是最新的，发布后需要在master上打版本tag，develop数据开发分支 临时分支有三个Release、Feature、Hotfix;
-其中release属于开发阶段用于质量测试的临时分支，feature属于开发过程中新作的功能，hotfix属于发布版本后再发现的问题修复
-```
+常驻分支只有两个master、develop;其中master是最新的，发布后需要在master上打版本tag，develop数据开发分支
+临时分支有三个Release、Feature、Hotfix；其中release属于开发阶段用于质量测试的临时分支，feature属于开发过程中新作的功能，hotfix属于发布版本后再发现的问题修复
 
+## 2 git commit 规范
 
-## commit 规范
-### 格式
-```text
+### 2.1 格式
+```bash
 <type>(<scope>): <subject>
-空一行
+# 空一行
 <body>
-空一行
+# 空一行
 <footer>
 ```
-
-### 参数
-```text
+::: tip
 #### type
 - feat：新特性
 - fix: 修复bug
@@ -77,19 +73,17 @@ Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Devel
 - 详细说明，可以省略
 #### footer
 - 须关闭的Jira号或者链接
-```
+  :::
 
 ## 案例说明
-
 ### 冒号后和<subject>要加一个空格，目的是在IDEA历史记录里看上去干净
-```text
+```bash
 feat: 用户查询接口开发 Close#RM-23412
-
-fix(UserService): 用户查询缺少username属性 Close#BUG-23412
+fix(DAO): 用户查询缺少username属性 Close#BUG-23412
 ```
 
 ### 如果subject无法说明本次提交可以考虑body描述详细信息
-```text
+```bash
 feat: 客户交易金额同步至风控平台
 
 1、调用分控平台API_XXX

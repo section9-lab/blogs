@@ -51,6 +51,7 @@ Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Devel
 ## 2 git commit 规范
 
 ### 2.1 格式
+
 ```text
 <type>(<scope>): <subject>
 # 空一行
@@ -58,6 +59,7 @@ Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Devel
 # 空一行
 <footer>
 ```
+
 ```text
 #### type
 - feat：新特性
@@ -82,13 +84,16 @@ Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Devel
 ```
 
 ### 2.2 案例说明
+
 #### 冒号后和<subject>要加一个空格，目的是在IDEA历史记录里看上去干净
+
 ```text
 feat: 用户查询接口开发 Close#RM-23412
 fix(UserService): 用户查询缺少username属性 Close#BUG-23412
 ```
 
 #### 如果subject无法说明本次提交可以考虑body描述详细信息
+
 ```text
 feat: 客户交易金额同步至风控平台
 
@@ -97,57 +102,6 @@ feat: 客户交易金额同步至风控平台
 3、xxx分布一致性
 
 Close#RM-23412
-```
-
-## 3 Actions
-
-### 3.1 概念
-
-### 3.2 案例
-```text
-name: CI
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14'
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-            
-      # 如果缓存没有命中，安装依赖
-      - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile
-
-      # 运行构建脚本
-      - name: Build dns-info site
-        run: |
-          yarn
-          yarn build
 ```
 
 

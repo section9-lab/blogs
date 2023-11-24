@@ -42,14 +42,16 @@ Develop分支成熟后可以合并到 Release 分支。
 # 5 Feature||name 分支
 Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Develop 分支。
 ```
+
 常驻分支只有两个master、develop; 
 其中master是最新的，发布后需要在master上打版本tag，develop数据开发分支 临时分支有三个Release、Feature、Hotfix;
 其中release属于开发阶段用于质量测试的临时分支，feature属于开发过程中新作的功能，hotfix属于发布版本后再发现的问题修复
 
+
 ## 2 git commit 规范
 
 ### 2.1 格式
-```bash
+```text
 <type>(<scope>): <subject>
 # 空一行
 <body>

@@ -16,20 +16,20 @@ sticky: true
 
 ## 基本语法
 
-Hello World
+### Hello World
 ```python
 >>> print("Hello, World!")
 Hello, World!
 ```
 
-变量
+### 变量
 ```python
 age = 18       # 年龄是 int 类型
 name = "John"  # 名字现在是 str 类型
 print(name)
 ```
 
-判断
+### 判断
 ```python
 num = 200
 if num > 0:
@@ -38,7 +38,7 @@ else:
     print("num is not greater than 0")
 ```
 
-循环
+### 循环
 ```python
 for item in range(6):
     if item == 3: break
@@ -47,7 +47,7 @@ else:
     print("Finally finished!")
 ```
 
-算术
+### 算术
 ```python
 result = 10 + 30 # => 40
 result = 40 - 10 # => 30
@@ -58,14 +58,14 @@ result = 25 % 2  # => 1
 result = 5 ** 3  # => 125
 ```
 
-文件读取
+### 文件读取
 ```python
 with open("myfile.txt", "r", encoding='utf8') as file:
     for line in file:
         print(line)
 ```
 
-函数
+### 函数
 ```python
 def hello_world():  
     print('Hello, World!')
@@ -91,7 +91,7 @@ add(5, 20)  # => 25
 # => 5
 (lambda x, y: x ** 2 + y ** 2)(2, 1)
 ```
-异常处理
+### 异常处理
 ```python
 try:
     # 使用“raise”来引发错误
@@ -107,7 +107,7 @@ finally:                 # 在所有情况下执行
 ```
 
 
-数据类型
+### 数据类型
 |  类型   | 名称  |
 |  ----  | ----  |
 | str  | 文本／字符串（Text） |
@@ -118,7 +118,7 @@ finally:                 # 在所有情况下执行
 | set, frozenset  | 集合（Set） |
 | bytes, bytearray,memoryview  | 二进制数据（Binary） |
 
-字符串
+#### 字符串
 ```python
 hello = "Hello World"
 hello = 'Hello World'
@@ -173,9 +173,7 @@ txt2 = "My name is {0}, I'm {1}".format("John", 36)
 txt3 = "My name is {}, I'm {}".format("John", 36)
 ```
 
-数据类型
-
-列表
+#### 列表
 ```python
 #定义
 list1 = ["apple", "banana", "cherry"]
@@ -203,13 +201,17 @@ mylist.append(2)
 for item in mylist:
     print(item) # 打印输出 1,2
     
-#元组
+```
+#### 元组
+```
 my_tuple = (1, 2, 3)
 my_tuple = tuple((1, 2, 3))
 #集合
 set1 = {"a", "b", "c"}   
 set2 = set(("a", "b", "c"))
-#字典
+```
+####字典
+```
 >>> empty_dict = {}
 >>> a = {"one": 1, "two": 2, "three": 3}
 >>> a["one"]
@@ -226,15 +228,17 @@ dict_keys(['one', 'two', 'three', 'four'])
 ```
 
 
-类&继承
+### 类&继承
+#### 定义
 ```python
-#定义
+
 class MyNewClass:
     pass
 # 类的实例化
 my = MyNewClass()
-
-#构造函数
+```
+#### 构造函数
+```
 class Animal:
     def __init__(self, voice):
         self.voice = voice
@@ -244,9 +248,10 @@ print(cat.voice)    # => Meow
  
 dog = Animal('Woof') 
 print(dog.voice)    # => Woof
+```
 
-
-#方法
+#### 方法
+```
 class Dog:
     # 类的方法
     def bark(self):
@@ -254,8 +259,10 @@ class Dog:
  
 charlie = Dog()
 charlie.bark()   # => "Ham-Ham"
+```
 
-#类变量
+#### 类变量
+```
 class MyClass:
     class_variable = "A class variable!"
 # => 一个类变量！
@@ -264,8 +271,10 @@ x = MyClass()
  
 # => 一个类变量！
 print(x.class_variable)
+```
 
-#super函数
+#### super函数
+```
 class ParentClass:
     def print_test(self):
         print("Parent Method")
@@ -279,8 +288,9 @@ class ChildClass(ParentClass):
 >>> child_instance.print_test()
 Child Method
 Parent Method
-
-#repr方法
+```
+#### repr方法
+```
 class Employee:
     def __init__(self, name):
         self.name = name
@@ -290,8 +300,9 @@ class Employee:
  
 john = Employee('John')
 print(john)  # => John
-
-#多态
+```
+#### 多态
+```
 class ParentClass:
     def print_self(self):
         print('A')
@@ -305,8 +316,10 @@ obj_B = ChildClass()
  
 obj_A.print_self() # => A
 obj_B.print_self() # => B
+```
 
-#重写
+#### 重写
+```
 class ParentClass:
     def print_self(self):
         print("Parent")
@@ -317,9 +330,10 @@ class ChildClass(ParentClass):
  
 child_instance = ChildClass()
 child_instance.print_self() # => Child
+```
 
-
-#继承
+#### 继承
+```
 class Animal: 
     def __init__(self, name, legs):
         self.name = name
@@ -333,5 +347,4 @@ Yoki = Dog("Yoki", 4)
 print(Yoki.name) # => YOKI
 print(Yoki.legs) # => 4
 Yoki.sound()     # => Woof!
-
 ```

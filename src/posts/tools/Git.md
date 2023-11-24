@@ -56,7 +56,7 @@ Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Devel
 # 空一行
 <footer>
 ```
-::: tip
+```text
 #### type
 - feat：新特性
 - fix: 修复bug
@@ -77,7 +77,7 @@ Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Devel
 - 详细说明，可以省略
 #### footer
 - 须关闭的Jira号或者链接
-:::
+```
 
 ### 2.2 案例说明
 #### 冒号后和<subject>要加一个空格，目的是在IDEA历史记录里看上去干净

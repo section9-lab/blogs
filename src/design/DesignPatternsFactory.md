@@ -10,6 +10,10 @@ sticky: true
 ---
 
 # Design Patterns Factory
+
+[[toc]]
+---
+
 # 一、创建型模式：
 
 ## 2、工厂模式

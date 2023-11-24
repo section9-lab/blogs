@@ -10,6 +10,10 @@ sticky: true
 ---
 
 # Design Patterns Singleton
+
+[[toc]]
+---
+
 # 一、创建型模式：
 
 ## 1、单例模式

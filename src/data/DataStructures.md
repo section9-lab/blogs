@@ -11,6 +11,9 @@ sticky: true
 
 # Data Structures Overview
 
+[[toc]]
+---
+
 ```mermaid
 graph LR;
 数据结构-->线性结构

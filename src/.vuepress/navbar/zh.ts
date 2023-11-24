@@ -15,7 +15,6 @@ export const zhNavbar = navbar([
         icon: "book",
         prefix: "guide/",
         children: [
-          "Bash",
           "Git",
           "Docker",
           "Redis",

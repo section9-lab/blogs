@@ -26,11 +26,8 @@ export default hopeTheme({
       Email: "section9lab@gmail.com",
       GitHub: "https://github.com/section9lab/",
       Linkedin: "https://example.com",
-      Rss: "https://example.com",
-      Steam: "https://example.com",
       Twitter: "https://example.com",
       Wechat: "https://example.com",
-      Zhihu: "https://example.com",
     },
   },
 

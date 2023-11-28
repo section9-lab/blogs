@@ -14,12 +14,12 @@ sticky: true
 [[toc]]
 ---
 
-## 算法复杂性分析
+# 算法复杂性分析
 
 ![algorithm](../.vuepress/public/assets/images/algorithm.png)
 
 
-### 常数阶(1)
+## 常数阶(1)
 ```java
 public void sum(int n) {
     int sum = 0; // 执行一次
@@ -28,7 +28,7 @@ public void sum(int n) {
 }
 ```
 
-### 对数阶(logN)
+## 对数阶(logN)
 多少个2相乘后其结果值会大于n，即2^x=n。由2^x=n可以得到x=logn，所以这段代码时间复杂度是O(logn)
 ```java
 public void logarithm(int n) {
@@ -39,7 +39,7 @@ public void logarithm(int n) {
 }
 ```
 
-### 线性阶(n)
+## 线性阶(n)
 ```java
 public void circle(int n) {
     for(int i = 0; i < n; i++) { // 执行n次
@@ -48,7 +48,7 @@ public void circle(int n) {
 }
 ```
 
-### 对数阶(n*logN)
+## 对数阶(n*logN)
 ```java
 public void logarithm(int n) {
     int count = 1;
@@ -60,7 +60,7 @@ public void logarithm(int n) {
 }
 ```
 
-### 平方阶(n2)
+## 平方阶(n2)
 ```java
 public void square(int n) {
     for(int i = 0; i < n; i++){ // 执行n次
@@ -71,9 +71,9 @@ public void square(int n) {
 }
 ```
 
-## 常见算法
+# 常见算法
 
-### 冒泡排序算法
+## 冒泡排序算法
 ```java
 public static void bubbleSort(int[] input) {
     for (int i = 0; i < input.length - 1; i++) {
@@ -88,7 +88,7 @@ public static void bubbleSort(int[] input) {
 }
 ```
 
-### 快速排序算法
+## 快速排序算法
 ```java
 import java.util.Arrays;
 
@@ -155,7 +155,7 @@ public class Main {
 }
 ```
 
-### 二分查找算法
+## 二分查找算法
 ```java
 public static int binarySearch(int[] arr, int key) {
     int low = 0;
@@ -176,7 +176,7 @@ public static int binarySearch(int[] arr, int key) {
 }
 ```
 
-### 反转链表
+## 反转链表
 ```java
 import java.lang.*;
 class ListNode{
@@ -209,8 +209,8 @@ class ListNode{
     }
 ```
 
-### 动态规划
-#### 斐波那契数列
+## 动态规划
+### 斐波那契数列
 题目: https://link.juejin.cn/?target=https%3A%2F%2Fleetcode-cn.com%2Fproblems%2Ffei-bo-na-qi-shu-lie-lcof
 ```java
 class Solution {
@@ -269,7 +269,7 @@ class Solution {
 }
 ```
 
-#### 爬楼梯
+### 爬楼梯
 题目：https://leetcode.cn/problems/climbing-stairs/
 
 ```java
@@ -287,7 +287,7 @@ class Solution {
 ```
 
 
-#### 打家劫舍
+### 打家劫舍
 题目：https://leetcode.cn/problems/house-robber/
 
 ```java

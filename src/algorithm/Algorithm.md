@@ -16,7 +16,7 @@ sticky: true
 
 ## 算法复杂性分析
 
-![algorithm](../../.vuepress/public/assets/images/algorithm.png)
+![algorithm](../.vuepress/public/assets/images/algorithm.png)
 
 
 ### 常数阶(1)

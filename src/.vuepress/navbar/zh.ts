@@ -46,11 +46,12 @@ export const zhNavbar = navbar([
     ],
   },
   {
-    text: "数据结构",
+    text: "数据结构与算法",
     icon: "book",
-    prefix: "/data/",
+    prefix: "/algorithm/",
     children: [
       "DataStructures"
+      "algorithm"
     ]
   },
   {

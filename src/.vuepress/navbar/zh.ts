@@ -50,8 +50,8 @@ export const zhNavbar = navbar([
     icon: "book",
     prefix: "/algorithm/",
     children: [
-      "DataStructures"
-      "algorithm"
+      "DataStructures",
+      "Algorithm",
     ]
   },
   {

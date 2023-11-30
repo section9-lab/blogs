@@ -6,7 +6,7 @@ category:
 tag:
   - tools
 star: true
-sticky: true
+sticky: false
 ---
 
 # Docker
@@ -14,7 +14,49 @@ sticky: true
 [[toc]]
 ---
 # Docker
-## 安装docker
+
+## 1、Docker是什么？
+
+Docker 基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术，对进程进行封装隔离，属于 操作系统层面的虚拟化技术。
+由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。
+
+![架构](../../.vuepress/public/assets/images/docker-on-linux.png)
+
+Docker 在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔离等等，极大的简化了容器的创建和维护。
+使得 Docker 技术比虚拟机技术更为轻便、快捷。
+
+![运行流程](../../.vuepress/public/assets/images/docker-flow.png)
+
+## 2、Docker解决了什么问题？
+### 2.1、在Docker诞生之前存在什么问题？
+
+- 没有版本控制，每次上线前要对老包备份。
+- 没有统一配置，集群里各个硬件节点规格不一样。
+- 没有统一的环境，dev环境和test环境和prod环境不一样。
+- 没有隔离，ES和Redis、kafka运行在一起，抢占资源。
+- 无法移植。
+
+### 2.2、Docker的优点：
+
+- 更高效的利用系统资源
+> Docker 容器不需硬件虚拟和运行操作系统的开销,因此在同等配置下,主机可以运行更多数量的应用。
+
+- 更快速的启动时间
+> Docker 容器直接运行于宿主机内核,避免启动完整操作系统,从而实现秒级甚至毫秒级的应用启动。
+
+- 一致的运行环境
+> Docker 镜像提供除内核外完整的运行环境,确保从开发到生产的环境一致性,避免了「代码在我机器上没问题」这类问题的出现。
+
+- 持续交付和部署
+> 对开发和运维人员来说,Docker 可以通过制作应用镜像,实现从持续集成到持续交付及自动化部署,整个过程透明且高效。
+
+- 更轻松的迁移
+> Docker 容器化应用执行环境,使应用迁移到任意平台时环境一致、顺利运行。
+
+- 更轻松的维护和扩展
+> Docker 利用分层存储和镜像技术,使应用复用、维护和定制变得简单高效,配合优质官方镜像,可直接用于生产或定制使用,大幅降低应用镜像制作成本。
+
+## 3、安装docker
 
 docker_install.sh
 
@@ -35,6 +77,9 @@ curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --de
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+
+sudo systemctl enable docker
+sudo systemctl start docker
 ```
 
 @tab CentOS
@@ -58,14 +103,8 @@ systemctl restart docker
 
 :::
 
-## 启动docker
-```bash
-sudo systemctl enable docker
-sudo systemctl start docker
-```
-
-## docker命令
-#### docker image
+## 4、docker命令
+### 4.1、image
 ```sh
 #查看服务器中docker 镜像列表：
 docker images
@@ -101,15 +140,15 @@ docker save -o rocketmq.tar
 #加载镜像(任何装 docker 的地方加载镜像保存文件,使其恢复为一个镜像)
 docker load --input rocketmq.tar 或 docker load < rocketmq.tar
 ```
-
+### 4.1、文件
 ```sh
 #文件映射
-docker run -v /etc/config：/etc/config my_image
+docker run -v /etc/config:/etc/config my_image
 
 #文件cp
 docker cp /mnt/c/Users/wxx/Downloads/kafka_2.12-2.1.2.tar.gz 64222xxx110:/usr/local/
 ```
-### docker 容器
+### 4.2、容器
 ```sh
 #查看正在运行的容器列表
 docker ps
@@ -119,11 +158,14 @@ docker ps -a
 
 #创建并启动容器
 > docker run -itd --name=kylin-test --net=host kylin-os-backup:latest /bin/bash
+
+#停用
+docker stop xxxx
 ```
 
-## Dockerfile
-### 本地文件
-#### 创建dockerfile项目
+## 5、Dockerfile
+### 5.1、本地文件
+#### 5.1.1、创建dockerfile项目
 ```bash
 $ mkdir redis && cd redis
 $ touch Dockerfile
@@ -135,21 +177,21 @@ RUN yum -y install wget \
     && tar -xvf redis.tar.gz \
     && rm redis.tar.gz
 ```
-#### 构建
+#### 5.1.2、构建
 ```bash
 docker build -t redis:test .
 ```
-#### 运行
+#### 5.1.3、运行
 ```bash
 docker run -d -p 6379:6379 --name redis redis:test
 ```
 
-### git构建
+### 5.2、git构建
 ```bash
 docker build -t hello-world https://github.com/docker-library/hello-world.git#master:amd64/hello-world
 ```
 
-### 标准输入构建
+### 5.3、标准输入构建
 ```bash
 docker build -t mybusybox:latest -<<EOF
 FROM busybox
@@ -158,24 +200,28 @@ EOF
 ```
 
 
-## 例子
-> 启动一个本地hadoop镜像
+## 6、例子
 
-### 拉取镜像
+### 6.1、启动一个本地hadoop镜像
+下载image
 ```bash
 docker pull sequenceiq/hadoop-docker:2.7.1
 ```
 
-### 使用镜像
+启动容器
 ```bash
 #后台运行
-sudo docker run -dti -p 50070:50070 -p 9000:9000 -p 8088:8088 -p 8040:8040 -p 8042:8042  \
--p 49707:49707  -p 50010:50010  -p 50075:50075  -p 50090:50090 -p 2181:2181 -p 9092:9092 \
+sudo docker run -dti --hostname bigdatadev.host \
+-p 50070:50070 -p 9000:9000 -p 8088:8088 -p 8040:8040 -p 8042:8042 -p 49707:49707 \
+-p 50010:50010 -p 50075:50075 -p 50090:50090 -p 2181:2181 -p 9092:9092 \
 sequenceiq/hadoop-docker:2.7.0 /etc/bootstrap.sh -bash --privileged=true
 ```
-### 测试：
+
+测试：
+```text
 hdfs-ui
 http://localhost:50070/dfshealth.html#tab-overview
 
 yarn-ui
 http://localhost:8088/cluster/apps/RUNNING
+```

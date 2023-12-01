@@ -6,7 +6,7 @@ category:
 tag:
   - python
 star: true
-sticky: true
+sticky: false
 ---
 
 # Python
@@ -18,24 +18,44 @@ sticky: true
 
 ### Hello World
 ```python
->>> print("Hello, World!")
-Hello, World!
+#!/usr/bin/env python
+
+# -*- encoding: utf-8 -*-
+
+def print_hi(name: str, say: str = 'I am python'):
+    hello: str = 'Hello'
+    print(f'{hello}, {name}! \n{say}')
+
+
+if __name__ == '__main__':
+    print_hi('World')
+
+    
+[root@loacl ~]python3 run.py
+Hello, World! 
+I am python
 ```
 
 ### 变量
 ```python
-age = 18       # 年龄是 int 类型
-name = "John"  # 名字现在是 str 类型
-print(name)
+age: int = 18  # 年龄是 int 类型
+name: str = "John"  # 名字现在是 str 类型
+print(name, age)
+
+[root@loacl ~]python3 run.py
+John 18
 ```
 
 ### 判断
 ```python
-num = 200
+num: int = 200
 if num > 0:
     print("num is greater than 0")
 else:
     print("num is not greater than 0")
+    
+[root@loacl ~]python3 run.py
+num is greater than 0
 ```
 
 ### 循环
@@ -67,9 +87,6 @@ with open("myfile.txt", "r", encoding='utf8') as file:
 
 ### 函数
 ```python
-def hello_world():  
-    print('Hello, World!')
-
 def add(x, y):
     print("x is %s, y is %s" %(x, y))
     return x + y

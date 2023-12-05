@@ -211,64 +211,91 @@ class ListNode{
 
 ## 动态规划
 ### 斐波那契数列
-题目: https://link.juejin.cn/?target=https%3A%2F%2Fleetcode-cn.com%2Fproblems%2Ffei-bo-na-qi-shu-lie-lcof
+> 从第三项开始，每一项都等于前两项之和。具体来说，数列的前几项是：1、1、2、3、5、8、13、21、34、……
+
+暴力递归：
 ```java
 class Solution {
     public int fib(int n) {
-        // f(0)和f(1)
         if (n <= 1) {
-            return n;
+            return 1;
         }
-        // 递归
-        return (fib(n - 1) + fib(n - 2)) % 1000000007;
+        return (fib(n - 1) + fib(n - 2));
     }
 }
 ```
-```mermaid
-graph LR;
-F(4)-->F(2)
-F(4)-->F(3)
 
-F(2)-->F(0)=0
-F(2)-->F(1)=1
+```text
+                       F5
+            F4                   F3
+      F3        F2=1         F2=1   F1=1
+  F2=1  F1=1
 
-F(3)-->F(2)
-F(3)-->F(1)=1
+分析暴力递归写法的执行流程
+例如：我们计算f(5) 需要计算f(4) + f(3)
+计算f(3) = f(3) + f(2)
+发现没 f(3) 就要跑了两次。因此我们就想到可以用缓存把状态记录下来
 
-F(2)-->F(0)=0
-F(2)-->F(1)=1
 ```
-- 计算F(4)，因为4 > 1，代入公式F(N) = F(N - 1) + F(N - 2)得到：F(4) = F(3) + F(2)，所以想要计算F(4)的值，需要先计算F(2)和F(3)的值
-- 计算F(2)，同理得到F(2) = F(1) + F(0) = 1 + 0 = 1
-- 计算F(3)，同理得到F(3) = F(1) + F(2)，这里的F(2)也需要再计算一次，F(2) = F(1) + F(0) = 1 + 0 = 1，最终计算出F(3) = F(1) + F(2) = 1 + 1 = 2
-- 最终计算出F(4) = F(3) + F(2) = 2 + 1 = 3
-  
-可以看到，在计算F(4)的值时，对于F(2)的计算其实是执行了两次，随着N不断增大，出现重复计算的地方也会越多！
-我们的优化思路就是减少这部分重复计算，当N确定时，F(N)计算一次过后的结果其实是不变的，我们把它保存下来即可。又因为N > 1时，F(N) = F(N - 1) + F(N - 2)，所以F(N)的计算，其实只依赖于前两项，只需要保存前两项结果即可
-  
-优化后的代码：
+
+
+第一次优化 记忆化递归(有备忘录的递归)：
 ```java
-class Solution {
-    public int fib(int n) {
-        // 定义f(0)和f(1)
-        int a = 0;
-        int b = 1;
-        // 定义返回的结果，注意这里result = n
-        int result = n;
-        // 迭代处理
-        while (n > 1) {
-            // 按题目要求取模
-            result = (a + b) % 1000000007;
-            // 后移
-            a = b;
-            b = result;
-            n--;
+    public static int F(int n, int[] cacheList) {
+        if (cacheList[n] != -1) {
+            //缓存中存在对应集合时，直接返回
+            return cacheList[n];
         }
-        return result;
+        if (n <= 2) {
+            //如果
+            cacheList[n] = 1;
+        } else {
+            cacheList[n] = F(n - 1, cacheList) + F(n - 2, cacheList);
+        }
+        return cacheList[n];
     }
-}
+
+    // 记忆化递归
+    public static int fib2(int n) {
+        int[] m = new int[n + 1];
+        Arrays.fill(m, -1);
+        return F(n, m);
+    }
 ```
 
+第二次优化 动态规划
+```java
+    //动态规划
+    public static int fib3(int number) {
+        if (number <= 1) {
+            return number;
+        }
+        int[] dp = new int[(number + 1)];
+        dp[1] = 1;
+        for (int i = 2; i <= number; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[number];
+    }
+```
+
+第三次优化 动态规划(执行空间优化版本)
+缓存表的最终值是前两项的和，用两个常数空间存储即可
+```java
+    //迭代(优化空间版本)
+    public static int fib4(int number) {
+        if (number < 2) {
+            return 1;
+        }
+        int prev = 0, curr = 1;
+        for (int i = 2; i <= number; i++) {
+            int tmp = curr;
+            curr = prev + curr;
+            prev = tmp;
+        }
+        return curr;
+    }
+```
 ### 爬楼梯
 题目：https://leetcode.cn/problems/climbing-stairs/
 

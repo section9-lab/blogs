@@ -213,17 +213,18 @@ class ListNode{
 ### 斐波那契数列
 > 从第三项开始，每一项都等于前两项之和。具体来说，数列的前几项是：1、1、2、3、5、8、13、21、34、……
 
-暴力递归：
+### 暴力递归
 ```java
-class Solution {
-    public int fib(int n) {
-        if (n <= 1) {
-            return 1;
+    //暴力递归
+    public static int fib(int number) {
+        if (number == 1 || number == 2) {
+            return number;
         }
-        return (fib(n - 1) + fib(n - 2));
+        int count = fib(number - 1) + fib(number - 2);
+        return count;
     }
-}
 ```
+复杂度为`2^n^`
 
 ```text
                        F5
@@ -239,63 +240,78 @@ class Solution {
 ```
 
 
-第一次优化 记忆化递归(有备忘录的递归)：
+### 第一次优化 记忆化递归(有备忘录的递归)：
 ```java
-    public static int F(int n, int[] cacheList) {
-        if (cacheList[n] != -1) {
+    public static int dfs(int n, int[] mem) {
+        if (n == 1 || n == 2) {
+            return n;
+        }
+        if (mem[n] != -1) {
             //缓存中存在对应集合时，直接返回
-            return cacheList[n];
+            return mem[n];
         }
-        if (n <= 2) {
-            //如果
-            cacheList[n] = 1;
-        } else {
-            cacheList[n] = F(n - 1, cacheList) + F(n - 2, cacheList);
-        }
-        return cacheList[n];
+        int count = dfs(n - 1, mem) + dfs(n - 2, mem);
+        // 记录 dp[i]
+        mem[n] = count;
+        return mem[n];
     }
 
     // 记忆化递归
     public static int fib2(int n) {
-        int[] m = new int[n + 1];
-        Arrays.fill(m, -1);
-        return F(n, m);
+        int[] mem = new int[n + 1];
+        Arrays.fill(mem, -1);
+        return dfs(n, mem);
     }
 ```
+记忆化递归是一种`从顶到底`的方法，递归地将较大子问题分解为较小子问题，直至解已知的最小子问题（叶节点）。
+之后，通过回溯逐层收集子问题的解，构建出原问题的解。
 
-第二次优化 动态规划
+复杂度`n`
+
+### 第二次优化 动态规划
+动态规划是一种`从底至顶`的方法：从最小子问题的解开始，迭代地构建更大子问题的解，直至得到原问题的解。
+由于动态规划不包含回溯过程，因此只需使用循环迭代实现，无须使用递归。
+在以下代码中，我们初始化一个数组 dp 来存储子问题的解，它起到了与记忆化搜索中数组 mem 相同的记录作用：
 ```java
     //动态规划
     public static int fib3(int number) {
-        if (number <= 1) {
+        if (number == 1 || number == 2) {
             return number;
         }
-        int[] dp = new int[(number + 1)];
+        int[] dp = new int[number + 1];
+        // 初始状态：预设最小子问题的解
         dp[1] = 1;
-        for (int i = 2; i <= number; i++) {
+        dp[2] = 2;
+        // 状态转移：从较小子问题逐步求解较大子问题
+        for (int i = 3; i <= number; i++) {
             dp[i] = dp[i - 1] + dp[i - 2];
         }
         return dp[number];
     }
 ```
+复杂度`n`
 
-第三次优化 动态规划(执行空间优化版本)
-缓存表的最终值是前两项的和，用两个常数空间存储即可
+### 第三次优化 动态规划(执行空间优化版本)
+
+缓存表的最终值是前两项的和(dp[i]只与dp[i-1]和dp[i-2]有关)，因此无需数值，只用两个变量滚动前进即可
 ```java
     //迭代(优化空间版本)
     public static int fib4(int number) {
-        if (number < 2) {
-            return 1;
+        if (number == 1 || number == 2) {
+            return number;
         }
-        int prev = 0, curr = 1;
-        for (int i = 2; i <= number; i++) {
-            int tmp = curr;
-            curr = prev + curr;
-            prev = tmp;
+        int a = 1;
+        int b = 2;
+        for (int i = 3; i <= number; i++) {
+            int tmp = b;
+            b = a + b;
+            a = tmp;
         }
-        return curr;
+        return b;
     }
 ```
+复杂度`1`
+
 ### 爬楼梯
 题目：https://leetcode.cn/problems/climbing-stairs/
 

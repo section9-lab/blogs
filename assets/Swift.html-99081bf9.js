@@ -1,0 +1,1 @@
+import{_ as t}from"./plugin-vue_export-helper-c27b6911.js";import{o as a,c as o,d as e,e as r}from"./app-f9e39324.js";const s={},c=e("h1",{id:"swift",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#swift","aria-hidden":"true"},"#"),r(" Swift")],-1),i=[c];function n(_,d){return a(),o("div",null,i)}const l=t(s,[["render",n],["__file","Swift.html.vue"]]);export{l as default};

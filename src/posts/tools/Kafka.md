@@ -13,6 +13,8 @@ sticky: true
 
 [[toc]]
 ---
+## 简介
+![](https://docs.confluent.io/_images/kafka-intro.png)
 
 ## config
 ```java
@@ -73,18 +75,18 @@ Kafka 0.11.0.0 版本引入了幂等生产者和事务支持。幂等生产者�
 消费者端可能需要额外处理来确保每条消息只被精确地消费一次，如手动管理偏移量提交。
 
 ## 关键配置解读：
-1. enable.auto.commit：是否开启自动提交Offset  默认 true (偏移量是在使用者的轮询方法执行期间提交的)
-2. auto.commit.interval.ms：自动提交Offset的时间间隔  默认 5000ms(仅定义提交之间的最小延迟)
+1. `enable.auto.commit`：是否开启自动提交Offset  默认 true (偏移量是在使用者的轮询方法执行期间提交的)
+2. `auto.commit.interval.ms`：自动提交Offset的时间间隔  默认 5000ms(仅定义提交之间的最小延迟)
 仅提交在以前的轮询调用中返回的记录的偏移量。由于处理发生在轮询调用之间，因此永远不会提交未处理记录的偏移量。这保证了`at-least-once`至少一次的交付语义。
 
 ## 处理速度慢的问题
-轮询方法调用之间允许的最大延迟由 max.poll.interval.ms 配置定义，默认为 5 分钟。
+轮询方法调用之间允许的最大延迟由 `max.poll.interval.ms` 配置定义，默认为 5 分钟。
 如果使用者未能在该时间间隔内调用轮询方法，则将其视为死，并触发组重新平衡。
 对于每个使用者的线程和每个记录需要很长时间才能处理的用例的默认配置，这种情况经常发生。
 
 使用每个使用者线程模型时，可以通过调整以下配置值来解决此问题：
-将 max.poll.records 设置为较小的值
-将 max.poll.interval.ms 设置为更高的值
+将 `max.poll.records` 设置为较小的值
+将 `max.poll.interval.ms` 设置为更高的值
 
 在kafka分区无法改动的情况下使用以下两种方案作为参考
 1、使用[Confluent Parallel Consumer](https://www.confluent.io/blog/introducing-confluent-parallel-message-processing-client/?utm_source=twitter&utm_medium=organicsocial&utm_campaign=tm.devx_ch.introducing-confluent-parallel-message-processing-client_content.clients)

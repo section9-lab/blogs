@@ -15,7 +15,7 @@ sticky: true
 ---
 ## 简介
 ![](https://docs.confluent.io/_images/kafka-intro.png)
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Overview_of_Apache_Kafka.svg/1280px-Overview_of_Apache_Kafka.svg.png){:height="50%" width="50%"}
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Overview_of_Apache_Kafka.svg/1280px-Overview_of_Apache_Kafka.svg.png)
 
 ## config
 ```java

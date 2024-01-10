@@ -227,7 +227,7 @@ http://localhost:8088/cluster/apps/RUNNING
 ## 7、docker 镜像加速
 7.1、配置
 镜像加速器 | 镜像加速器地址 | 其它加速[？](# "支持哪些镜像来源的镜像加速")
---- | --- | --- | ---
+--- | --- | ---
 [DaoCloud 镜像站](https://github.com/DaoCloud/public-image-mirror) | `https://docker.m.daocloud.io` |  Docker Hub、GCR、K8S、GHCR、Quay、NVCR 等
 [网易云](https://c.163yun.com/hub) | `https://hub-mirror.c.163.com` | Docker Hub
 [Docker 镜像代理](https://dockerproxy.com) | `https://dockerproxy.com` | Docker Hub、GCR、K8S、GHCR

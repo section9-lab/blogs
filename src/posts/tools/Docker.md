@@ -17,15 +17,12 @@ sticky: false
 
 ## 1、Docker是什么？
 
+![运行流程](../../.vuepress/public/assets/images/docker-flow.png)
 Docker 基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术，对进程进行封装隔离，属于 操作系统层面的虚拟化技术。
 由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。
 
-![架构](../../.vuepress/public/assets/images/docker-on-linux.png)
-
 Docker 在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔离等等，极大的简化了容器的创建和维护。
 使得 Docker 技术比虚拟机技术更为轻便、快捷。
-
-![运行流程](../../.vuepress/public/assets/images/docker-flow.png)
 
 ## 2、Docker解决了什么问题？
 ### 2.1、在Docker诞生之前存在什么问题？
@@ -229,15 +226,15 @@ http://localhost:8088/cluster/apps/RUNNING
 
 ## 7、docker 镜像加速
 7.1、配置
-镜像加速器 | 镜像加速器地址 | 专属加速器[？](# "需登录后获取平台分配的专属加速器") | 其它加速[？](# "支持哪些镜像来源的镜像加速")
+镜像加速器 | 镜像加速器地址 | 其它加速[？](# "支持哪些镜像来源的镜像加速")
 --- | --- | --- | ---
-[DaoCloud 镜像站](https://github.com/DaoCloud/public-image-mirror) | `https://docker.m.daocloud.io` | |  Docker Hub、GCR、K8S、GHCR、Quay、NVCR 等
-[网易云](https://c.163yun.com/hub) | `https://hub-mirror.c.163.com` | | Docker Hub
-[Docker 镜像代理](https://dockerproxy.com) | `https://dockerproxy.com` | | Docker Hub、GCR、K8S、GHCR
-[百度云](https://cloud.baidu.com/doc/CCE/s/Yjxppt74z#%E4%BD%BF%E7%94%A8dockerhub%E5%8A%A0%E9%80%9F%E5%99%A8) | `https://mirror.baidubce.com` | | Docker Hub
+[DaoCloud 镜像站](https://github.com/DaoCloud/public-image-mirror) | `https://docker.m.daocloud.io` |  Docker Hub、GCR、K8S、GHCR、Quay、NVCR 等
+[网易云](https://c.163yun.com/hub) | `https://hub-mirror.c.163.com` | Docker Hub
+[Docker 镜像代理](https://dockerproxy.com) | `https://dockerproxy.com` | Docker Hub、GCR、K8S、GHCR
+[百度云](https://cloud.baidu.com/doc/CCE/s/Yjxppt74z#%E4%BD%BF%E7%94%A8dockerhub%E5%8A%A0%E9%80%9F%E5%99%A8) | `https://mirror.baidubce.com` | Docker Hub
 [南京大学镜像站](https://doc.nju.edu.cn/books/35f4a) | `https://docker.nju.edu.cn` | | Docker Hub、GCR、GHCR、Quay、NVCR 等
-[上海交大镜像站](https://mirrors.sjtug.sjtu.edu.cn/) | `https://docker.mirrors.sjtug.sjtu.edu.cn` | | Docker Hub、GCR 等
-[中科院软件所镜像站](https://mirror.iscas.ac.cn/mirror/docker.html) | `https://mirror.iscas.ac.cn` | | Docker Hub
+[上海交大镜像站](https://mirrors.sjtug.sjtu.edu.cn/) | `https://docker.mirrors.sjtug.sjtu.edu.cn` | Docker Hub、GCR 等
+[中科院软件所镜像站](https://mirror.iscas.ac.cn/mirror/docker.html) | `https://mirror.iscas.ac.cn` | Docker Hub
 ```bash
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'

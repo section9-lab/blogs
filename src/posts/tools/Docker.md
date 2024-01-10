@@ -225,3 +225,49 @@ http://localhost:50070/dfshealth.html#tab-overview
 yarn-ui
 http://localhost:8088/cluster/apps/RUNNING
 ```
+
+
+## 7、docker 镜像加速
+7.1、配置
+镜像加速器 | 镜像加速器地址 | 专属加速器[？](# "需登录后获取平台分配的专属加速器") | 其它加速[？](# "支持哪些镜像来源的镜像加速")
+--- | --- | --- | ---
+[DaoCloud 镜像站](https://github.com/DaoCloud/public-image-mirror) | `https://docker.m.daocloud.io` | |  Docker Hub、GCR、K8S、GHCR、Quay、NVCR 等
+[网易云](https://c.163yun.com/hub) | `https://hub-mirror.c.163.com` | | Docker Hub
+[Docker 镜像代理](https://dockerproxy.com) | `https://dockerproxy.com` | | Docker Hub、GCR、K8S、GHCR
+[百度云](https://cloud.baidu.com/doc/CCE/s/Yjxppt74z#%E4%BD%BF%E7%94%A8dockerhub%E5%8A%A0%E9%80%9F%E5%99%A8) | `https://mirror.baidubce.com` | | Docker Hub
+[南京大学镜像站](https://doc.nju.edu.cn/books/35f4a) | `https://docker.nju.edu.cn` | | Docker Hub、GCR、GHCR、Quay、NVCR 等
+[上海交大镜像站](https://mirrors.sjtug.sjtu.edu.cn/) | `https://docker.mirrors.sjtug.sjtu.edu.cn` | | Docker Hub、GCR 等
+[中科院软件所镜像站](https://mirror.iscas.ac.cn/mirror/docker.html) | `https://mirror.iscas.ac.cn` | | Docker Hub
+```bash
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+    "registry-mirrors": [
+        "https://dockerproxy.com",
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://docker.nju.edu.cn"
+    ]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+7.2、检测
+命令行执行`docker info`，如果从结果中看到了如下内容，说明配置成功。
+
+Registry Mirrors:
+ [...]
+ https://docker.m.daocloud.io
+
+ 7.3、测速
+ 使用镜像前后，可使用 time 统计所花费的总时间。测速前先移除本地的镜像！
+```
+$ docker rmi node:latest
+$ time docker pull node:latest
+Pulling repository node
+[...]
+
+real   1m14.078s
+user   0m0.176s
+sys    0m0.120s
+```

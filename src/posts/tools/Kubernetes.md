@@ -127,9 +127,21 @@ sudo rpm -Uvh minikube-latest.x86_64.rpm
 ## 6、使用
 
 ### 6.1、minikube指令
+
+mac安装minikube
+```
+brew install minikube
+```
 通过运行以下命令启动集群：
 ```shell
 minikube start
+```
+版本升级
+```
+minikube update-check
+
+CurrentVersion: v1.34.0
+LatestVersion: v1.34.0
 ```
 访问在 minikube 集群中运行的 Kubernetes 仪表板：
 ```shell
@@ -170,5 +182,215 @@ kubectl create deployment hello-minikube --image=kicbase/echo-server:1.0
 kubectl expose deployment hello-minikube --type=NodePort --port=8080
 ```
 
+获取节点信息
+```
+kubectl get nodes     
+
+NAME       STATUS   ROLES           AGE   VERSION
+minikube   Ready    control-plane   66m   v1.31.0
+```
+
+获取集群的命名空间
+```
+kubectl get namespaces
+
+NAME                   STATUS   AGE
+default                Active   65m
+kube-node-lease        Active   65m
+kube-public            Active   65m
+kube-system            Active   65m
+kubernetes-dashboard   Active   21m
+```
+
+获取pod运行信息(pod中也运行着k8s自身所需要的服务)
+```
+kubectl get pods -A
+NAMESPACE              NAME                                READY   STATUS    RESTARTS      AGE
+kube-system            coredns-6f6b679f8f-2zsb4            1/1     Running   0             67m
+kube-system            etcd-minikube                       1/1     Running   0             67m
+kube-system            kube-apiserver-minikube             1/1     Running   0             67m
+kube-system            kube-controller-manager-minikube    1/1     Running   0             67m
+kube-system            kube-proxy-q64vb                    1/1     Running   0             67m
+kube-system            kube-scheduler-minikube             1/1     Running   0             67m
+kube-system            storage-provisioner                 1/1     Running   1 (67m ago)   67m
+kubernetes-dashboard   dashboard-metrics-scraper-cb4-24k   1/1     Running   0             24m
+kubernetes-dashboard   kubernetes-dashboard-695-rwvnn      1/1     Running   0             24m
+```
+
+获取服务信息
+```
+kubectl get services -A
+NAMESPACE              NAME                        TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)           AGE
+default                kubernetes                  ClusterIP   10.96.0.1      <none>        443/TCP           71m
+kube-system            kube-dns                    ClusterIP   10.96.0.10     <none>        53/UDP,9153/TCP   71m
+kubernetes-dashboard   dashboard-metrics-scraper   ClusterIP   10.99.160.10   <none>        8000/TCP          27m
+kubernetes-dashboard   kubernetes-dashboard        ClusterIP   10.108.78.40   <none>        80/TCP            27m
+╭─localhost@MacBook-Pro ~ 
+```
+
+通过YAML创建命名空间
+
+vim namespace.yaml 
+```
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: development
+```
+```
+╰─$ kubectl apply -f namespace.yaml 
+namespace/development created
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl get namespaces
+NAME                   STATUS   AGE
+default                Active   24h
+development            Active   23s
+kube-node-lease        Active   24h
+kube-public            Active   24h
+kube-system            Active   24h
+kubernetes-dashboard   Active   23h
+```
+
+
+增加一个生产环境命名空间
+vim namespace.yaml 
+```
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: development
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production
+```
+```
+kubectl apply -f namespace.yaml
+namespace/development unchanged
+namespace/production created
+
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl get namespaces         
+NAME                   STATUS   AGE
+default                Active   24h
+development            Active   3m7s
+kube-node-lease        Active   24h
+kube-public            Active   24h
+kube-system            Active   24h
+kubernetes-dashboard   Active   23h
+production             Active   6s
+```
+
+通过YAML删除命名空间
+```
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl delete -f namespace.yaml 
+namespace "development" deleted
+namespace "production" deleted
+```
+```
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl get namespaces          
+NAME                   STATUS   AGE
+default                Active   24h
+kube-node-lease        Active   24h
+kube-public            Active   24h
+kube-system            Active   24h
+kubernetes-dashboard   Active   23h
+```
+
+部署应用程序
+
+vim deployment.yml
+```
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-info-deployment
+  namespace: development
+  labels:
+    app: pod-info
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pod-info
+  template:
+    metadata:
+      labels:
+        app: pod-info
+    spec:
+      containers:
+      - name: pod-info-container
+        image: kimschles/pod-info-app:latest
+        ports:
+        - containerPort: 3000
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+```
+根据YAML文件创建
+```
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl apply -f deployment.yaml                                         
+deployment.apps/pod-info-deployment created
+
+```
+查看创建后的状态
+```
+# 查看指定命名空间下的控制器信息
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl get deployments -n development
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+pod-info-deployment   3/3     3            3           3m43s
+
+#查看development命名空间下的pod
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl get pods -n development       
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod-info-deployment-7b697c564d-w4mlt   1/1     Running   0          3m39s
+pod-info-deployment-7b697c564d-wrgsz   1/1     Running   0          3m39s
+pod-info-deployment-7b697c564d-z4rk6   1/1     Running   0          3m39s
+```
+
+测试k8s能否故障恢复
+测试方法：将development服务中的3个pod删除1个，之后集群会跟进配置的3副本再启动一个新node。
+操作如下：
+```
+#当前运行的三个node 时间也一样
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl get pods -n development            
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod-info-deployment-7b697c564d-w4mlt   1/1     Running   0          24m
+pod-info-deployment-7b697c564d-wrgsz   1/1     Running   0          24m
+pod-info-deployment-7b697c564d-z4rk6   1/1     Running   0          24m
+#删除1个node
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl delete pod pod-info-deployment-7b697c564d-w4mlt -n development
+pod "pod-info-deployment-7b697c564d-w4mlt" deleted
+^C% 
+#再次查看其中1个node name变了 而且运行时间短
+╭─localhost@MacBook-Pro ~ 
+╰─$ kubectl get pods -n       development
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod-info-deployment-7b697c564d-6fg5x   1/1     Running   0          34s
+pod-info-deployment-7b697c564d-wrgsz   1/1     Running   0          26m
+pod-info-deployment-7b697c564d-z4rk6   1/1     Running   0          26m
+
+```
 [参考]
 - https://kubernetes.io/zh-cn/docs/concepts/overview/

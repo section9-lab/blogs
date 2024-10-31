@@ -392,5 +392,147 @@ pod-info-deployment-7b697c564d-wrgsz   1/1     Running   0          26m
 pod-info-deployment-7b697c564d-z4rk6   1/1     Running   0          26m
 
 ```
+
+通过事件日志查看pod运行情况
+1、获取命名空间的pod服务信息
+```
+kubectl get pods -n development
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod-info-deployment-7b697c564d-6fg5x   1/1     Running   0          5d21h
+pod-info-deployment-7b697c564d-wrgsz   1/1     Running   0          5d21h
+pod-info-deployment-7b697c564d-z4rk6   1/1     Running   0          5d21h
+```
+2、通过 describe pod 查看某个命名空间显具体pod的详细信息
+```
+kubectl describe pod pod-info-deployment-7b697c564d-6fg5x -n development
+Name:             pod-info-deployment-7b697c564d-6fg5x
+Namespace:        development
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Sat, 26 Oct 2024 01:32:53 +0800
+Labels:           app=pod-info
+                  pod-template-hash=7b697c564d
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.8
+IPs:
+  IP:           10.244.0.8
+Controlled By:  ReplicaSet/pod-info-deployment-7b697c564d
+Containers:
+  pod-info-container:
+    Container ID:   docker://4a7845e78feac55c79e9eb8f2f993655e2e0573e3fd2a06e87d9b8474f15c090
+    Image:          kimschles/pod-info-app:latest
+    Image ID:       docker-pullable://kimschles/pod-info-app@sha256:fa4f33bc2301bb242bdd078ac206d0e379dfed2e225d46a6952ff444ae6f4a7a
+    Port:           3000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 26 Oct 2024 01:33:06 +0800
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      POD_NAME:       pod-info-deployment-7b697c564d-6fg5x (v1:metadata.name)
+      POD_NAMESPACE:  development (v1:metadata.namespace)
+      POD_IP:          (v1:status.podIP)
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-pdtg2 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-pdtg2:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
+
+```
+使用BusyBox检查应用程序
+1、创建一个运行BusyBox的pod，默认命名空间，1个副本就行
+vim busybox.yaml
+```
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: busybox
+  namespace: default
+  labels:
+    app: busybox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: busybox
+  template:
+    metadata:
+      labels:
+        app: busybox
+    spec:
+      containers:
+      - name: busybox-container
+        image: busybox:latest
+        # Keep the container running
+        command: [ "/bin/sh", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
+        resources:
+          requests:
+            cpu: 30m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+```
+2、创建BusyBox pod
+```
+kubectl apply -f busybox.yaml 
+deployment.apps/busybox created
+```
+3、查看是否启动
+```
+kubectl get pods
+NAME                       READY   STATUS    RESTARTS   AGE
+busybox-574654f4cb-fldrp   1/1     Running   0          59s
+```
+4、获取pod附加信息和K8s的IP地址
+```
+kubectl get pods -n development -o wide                                                     
+NAME                                   READY   STATUS    RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+pod-info-deployment-7b697c564d-6fg5x   1/1     Running   0          5d22h   10.244.0.8   minikube   <none>           <none>
+pod-info-deployment-7b697c564d-wrgsz   1/1     Running   0          5d23h   10.244.0.5   minikube   <none>           <none>
+pod-info-deployment-7b697c564d-z4rk6   1/1     Running   0          5d23h   10.244.0.6   minikube   <none>           <none>
+
+```
+5、进入pod内运行命令
+```
+kubectl exec -it busybox-574654f4cb-fldrp -- /bin/sh
+/ # 
+```
+6、测试k8s内的pod网络是否可以连通
+```
+/ # wget 10.244.0.8:3000
+Connecting to 10.244.0.8:3000 (10.244.0.8:3000)
+saving to 'index.html'
+index.html           100% |******************************************************************************|   103  0:00:00 ETA
+'index.html' saved
+/ # 
+```
+7、退出busybox
+```
+/ # exit
+```
+
+
+
 [参考]
 - https://kubernetes.io/zh-cn/docs/concepts/overview/

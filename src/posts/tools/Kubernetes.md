@@ -532,6 +532,23 @@ index.html           100% |*****************************************************
 / # exit
 ```
 
+查看应用程序日志
+
+1、获取命名空间中pod状态
+```
+kubectl get pods -n development        
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod-info-deployment-7b697c564d-6fg5x   1/1     Running   0          6d21h
+pod-info-deployment-7b697c564d-wrgsz   1/1     Running   0          6d21h
+pod-info-deployment-7b697c564d-z4rk6   1/1     Running   0          6d21h
+```
+2、是用logs获取pod节点运行日志
+```
+kubectl logs pod-info-deployment-7b697c564d-6fg5x -n development                                                      
+undefined
+Example app listening on port 3000
+```
+
 
 
 [参考]

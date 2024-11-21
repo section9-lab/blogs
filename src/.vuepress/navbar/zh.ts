@@ -29,7 +29,6 @@ export const zhNavbar = navbar([
           "Java8",
           "JavaScript",
           "Python",
-          "Swift",
         ],
       },
       {
@@ -46,7 +45,7 @@ export const zhNavbar = navbar([
     ],
   },
   {
-    text: "数据结构与算法",
+    text: "Algorithm",
     icon: "book",
     prefix: "/algorithm/",
     children: [
@@ -55,7 +54,7 @@ export const zhNavbar = navbar([
     ]
   },
   {
-    text: "设计模式",
+    text: "DesignPattern",
     icon: "book",
     prefix: "/design/",
     children: [
@@ -76,6 +75,16 @@ export const zhNavbar = navbar([
       "Flink-YarnK8s",
       "Flink-Serializer",
       "Flink-Job"
+    ]
+  },
+  {
+    text: "Cert",
+    icon: "book",
+    prefix: "/cert/",
+    children: [
+      "CKA",
+      "CKS",
+      "OSCP",
     ]
   },
 ]);

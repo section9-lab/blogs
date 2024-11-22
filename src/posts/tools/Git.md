@@ -76,14 +76,15 @@ Feature 分支都是从 Develop 分支來的，完成之后会在合并回 Devel
 - 须关闭的Jira号或者链接
   :::
 
-## 案例说明
-### 冒号后和'subject'要加一个空格，目的是在IDEA历史记录里看上去干净
+## commit Tips
+> 冒号后和'subject'要加一个空格，目的是在IDEA历史记录里看上去干净
+
 ```bash
 feat: 用户查询接口开发 Close#RM-23412
 fix(DAO): 用户查询缺少username属性 Close#BUG-23412
 ```
 
-### 如果subject无法说明本次提交可以考虑body描述详细信息
+> 如果subject无法说明本次提交可以考虑body描述详细信息
 ```bash
 feat: 客户交易金额同步至风控平台
 
@@ -93,6 +94,54 @@ feat: 客户交易金额同步至风控平台
 
 Close#RM-23412
 ```
+
+## 如何优雅的`merge`（git pull --rebase）
+场景：同事tom和自己对同项目代码进行修改，自己为了避免冲突报错，一般会先pull再merge，这样操作并没毛病。
+
+问题：但是会在git记录中产生大量的merge记录，每次过滤历史信息时会有很多无效信息
+
+解决方法：使用`git pull --rebase`命令，将自己的提交放一边，然后拉去同事tom记录，
+之后在tom的记录后面衔接自己的提交，形成线行记录，避免了无效的merge记录。
+
+IDEA在git Update Project时候，选择Rebase就行。
+
+
+## 关于`git reset`和`git revert`
+git reset 适合本地修正，历史记录会被改写。
+git revert 适合多人协作，不改写历史。
+
+reset
+```
+#有以下提交记录：
+A - B - C - D (HEAD)
+
+#想要撤销提交 D，不保留任何改动内容。
+git reset --hard HEAD~1
+
+#执行后：
+A - B - C (HEAD)
+```
+
+revert
+```
+#有以下提交记录：
+A - B - C - D (HEAD)
+
+#想要撤销提交 D，但保留完整的历史记录。
+git revert HEAD
+
+执行后：
+A - B - C - D - E (HEAD)
+```
+
+场景对比
+假设你在开发过程中发现 D 提交引入了严重的bug：
+
+在本地开发分支（未推送远程）
+使用 git reset --hard HEAD~1，快速撤销。
+
+在共享分支（已推送远程）
+使用 git revert HEAD，生成新的撤销提交，避免影响其他开发者。
 
 
 [参考]

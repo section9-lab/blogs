@@ -6,8 +6,8 @@ category:
 tag:
   - java
   - util
-star: true
-sticky: true
+star: false
+sticky: false
 ---
 
 # JsonMsgPack
@@ -87,7 +87,7 @@ public class JsonKit {
             throw new RuntimeException(e);
         }
     }
-    
+
     public static <T> T jsonFileToBean(String path, Class<T> valueType) {
         try {
             JsonMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -105,7 +105,7 @@ public class JsonKit {
             throw new RuntimeException(e);
         }
     }
-    
+
     public static <T> T jsonStrToBean(String jsonStr) {
         try {
             return JsonMapper.readerFor(Map.class).readValue(jsonStr);

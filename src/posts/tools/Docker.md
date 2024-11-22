@@ -6,7 +6,7 @@ category:
 tag:
   - tools
 star: true
-sticky: false
+sticky: true
 ---
 
 # Docker
@@ -64,7 +64,7 @@ docker_install.sh
 
 ```bash
 #!/usr/bin/bash
- 
+
 sudo apt-get remove docker
 sudo apt-get remove docker-engine
 sudo apt-get remove docker.io
@@ -110,7 +110,7 @@ docker images
 docker search [镜像名]
 
 #拉取镜像：
-docker pull 镜像名 
+docker pull 镜像名
 docker pull 镜像名:tag
 
 #运行镜像:

@@ -6,8 +6,8 @@ category:
 tag:
   - java
   - flink
-star: true
-sticky: true
+star: false
+sticky: false
 ---
 
 # Flink-Job

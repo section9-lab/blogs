@@ -6,8 +6,8 @@ category:
 tag:
   - java
   - api
-star: true
-sticky: true
+star: false
+sticky: false
 ---
 
 # Redis
@@ -26,7 +26,7 @@ docker run -itd --name redis-dev -p 6379:6379 redis
 docker ps
 
 docker exec -ti redis-dev bash
-root@d02c1ec11b1b:/data# redis-cli 
+root@d02c1ec11b1b:/data# redis-cli
 127.0.0.1:6379> PING
 PONG
 ```
@@ -38,7 +38,7 @@ PONG
 OK
 127.0.0.1:6379> GET test_str_key
 "this is a str value."
-127.0.0.1:6379> 
+127.0.0.1:6379>
 ```
 
 ### hash（哈希）
@@ -49,7 +49,7 @@ OK
 "value_1"
 127.0.0.1:6379> HGET test_hash_key key2
 "value_2"
-127.0.0.1:6379> 
+127.0.0.1:6379>
 ```
 
 ### list（列表）
@@ -73,7 +73,7 @@ OK
 1) "value_2"
 2) "value_1"
 3) "value_0"
-127.0.0.1:6379> 
+127.0.0.1:6379>
 
 ```
 
@@ -97,7 +97,7 @@ OK
 3) "value_3"
 4) "value_4"
 5) "value_0"
-127.0.0.1:6379> 
+127.0.0.1:6379>
 ```
 ### zset(sorted set：有序集合)
 ```bash
@@ -135,7 +135,7 @@ OK
 10) "4"
 11) "value_5"
 12) "5"
-127.0.0.1:6379> 
+127.0.0.1:6379>
 ```
 
 ## Java使用

@@ -5,8 +5,8 @@ category:
   - Project
 tag:
   - engineering
-star: true
-sticky: true
+star: false
+sticky: false
 ---
 
 # SimplifyProject

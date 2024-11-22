@@ -8,6 +8,12 @@ export const zhNavbar = navbar([
     prefix: "/posts/",
     children: [
       {
+        text: "语言",
+        icon: "book",
+        prefix: "language/",
+        children: ["Bash", "Java8", "Python"],
+      },
+      {
         text: "工具",
         icon: "book",
         prefix: "tools/",
@@ -19,12 +25,6 @@ export const zhNavbar = navbar([
           "LinuxTools",
           "Kubernetes",
         ],
-      },
-      {
-        text: "语言",
-        icon: "book",
-        prefix: "language/",
-        children: ["Bash", "Java8", "Python"],
       },
       {
         text: "项目",

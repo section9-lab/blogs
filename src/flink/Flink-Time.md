@@ -6,8 +6,8 @@ category:
 tag:
   - flink
   - java
-star: true
-sticky: true
+star: false
+sticky: false
 ---
 
 # Flink-Time

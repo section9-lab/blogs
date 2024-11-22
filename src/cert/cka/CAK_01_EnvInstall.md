@@ -78,7 +78,7 @@ multipass purge
 multipass mount ~/kubernetes/master master:~/master
 ```
 
-## 1.2、在虚拟机上创建操作系统镜像
+### 1.2、在虚拟机上创建操作系统镜像
 
 节点规划
 
@@ -115,7 +115,7 @@ k8s-work01              Running           192.168.64.4     Ubuntu 22.04 LTS
 k8s-work02              Running           192.168.64.5     Ubuntu 22.04 LTS
 ```
 
-## 1.3、镜像操作系统的配置设定
+### 1.3、镜像操作系统的配置设定
 
 - 密码配置
 
@@ -263,7 +263,7 @@ modprobe -- nf_conntrack
 EOF
 ```
 
-## 1.4、安装容器
+### 1.4、安装容器
 ```
 #containerd下载
 wget https://github.com/containerd/containerd/releases/download/v1.7.23/cri-containerd-1.7.23-linux-amd64.tar.gz
@@ -290,9 +290,11 @@ systemctl enable --now containerd
 containerd --version
 ```
 
-## 1.5、安装k8s
+## 2、安装k8s
 
-- 1.5.1、设置镜像源
+### 2.1、安装相关软件
+
+- 2.1.1、设置镜像源
 
 ```
 #创建目录
@@ -303,7 +305,7 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 ```
 
-- 1.5.2、安装`kubelet` `kubeadm` `kubectl`
+- 2.1.2、安装`kubelet` `kubeadm` `kubectl`
 
 ```
 apt clean && rm -rf /var/lib/apt/lists/* && apt update
@@ -324,7 +326,7 @@ sudo apt-get install -y kubelet=1.31.0-1.1 kubeadm=1.31.0-1.1 kubectl=1.31.0-1.1
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-## 1.6、集群初始化
+### 2.2、集群初始化
 
 生成配置文件：
 kubeadm config print init-defaults > kubeadm-config.yaml
@@ -427,7 +429,7 @@ node         NotReady   control-plane   4m42s   v1.31.0
 root@k8s-master:~#
 ```
 
-## 1.7、安装网络插件Calico(只在master执行)
+## 2.3、安装网络插件Calico(只在master执行)
 Calico是一个网络插件，提供高性能网络功能和网络安全策略
 
 |特性  	 |Calico 	 |Flannel 	|Cilium |
@@ -485,8 +487,8 @@ k8s-work02   NotReady   <none>          4m31s   v1.31.0
 node         NotReady   control-plane   10m     v1.31.0
 ```
 
-
-## 1.8、安装nginx测试集群可用性
+## 3、测试k8s集群
+### 3.1、安装nginx测试集群可用性
 ```
 root@k8s-master:~# cat nginx.yaml
 ---
@@ -550,7 +552,7 @@ kubernetes         ClusterIP   10.96.0.1        <none>        443/TCP        40h
 nginxweb-service   NodePort    10.104.125.155   <none>        80:30080/TCP   48m
 ```
 
-
+### 3.2、网络访问nginx
 network test
 ```
 ╭─test@MacBook-Pro ~

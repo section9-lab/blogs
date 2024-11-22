@@ -68,6 +68,19 @@ export const zhNavbar = navbar([
     text: "Cert",
     icon: "book",
     prefix: "/cert/",
-    children: ["CKA", "OSCP"],
+    children: [
+      {
+        text: "CKA",
+        icon: "book",
+        prefix: "cka/",
+        children: ["CAK_01_EnvInstall", "CAK_02_Enxam"],
+      },
+      {
+        text: "OSCP",
+        icon: "book",
+        prefix: "oscp/",
+        children: ["OSCP_01_EnvInfo", "OSCP_02_Enxam"],
+      },
+    ],
   },
 ]);

@@ -3,7 +3,7 @@ import { navbar } from "vuepress-theme-hope";
 export const zhNavbar = navbar([
   "/",
   {
-    text: "博文",
+    text: "blogs",
     icon: "book",
     prefix: "/posts/",
     children: [
@@ -24,22 +24,22 @@ export const zhNavbar = navbar([
         text: "语言",
         icon: "book",
         prefix: "language/",
-        children: [
-          "Bash",
-          "Java8",
-          "JavaScript",
-          "Python",
-        ],
+        children: ["Bash", "Java8", "Python"],
       },
       {
         text: "项目",
         icon: "book",
         prefix: "project/",
+        children: ["REST-API", "FastAPI", "JsonMsgPack", "SimplifyProject"],
+      },
+      {
+        text: "DesignPattern",
+        icon: "book",
+        prefix: "design/",
         children: [
-          "REST-API",
-          "FastAPI",
-          "JsonMsgPack",
-          "SimplifyProject",
+          "DesignPatternsOverview",
+          "DesignPatternsSingleton",
+          "DesignPatternsFactory",
         ],
       },
     ],
@@ -48,20 +48,7 @@ export const zhNavbar = navbar([
     text: "Algorithm",
     icon: "book",
     prefix: "/algorithm/",
-    children: [
-      "DataStructures",
-      "Algorithm",
-    ]
-  },
-  {
-    text: "DesignPattern",
-    icon: "book",
-    prefix: "/design/",
-    children: [
-      "DesignPatternsOverview",
-      "DesignPatternsSingleton",
-      "DesignPatternsFactory"
-    ]
+    children: ["DataStructures", "Algorithm"],
   },
   {
     text: "Flink",
@@ -74,17 +61,13 @@ export const zhNavbar = navbar([
       "Flink-Checkpoint",
       "Flink-YarnK8s",
       "Flink-Serializer",
-      "Flink-Job"
-    ]
+      "Flink-Job",
+    ],
   },
   {
     text: "Cert",
     icon: "book",
     prefix: "/cert/",
-    children: [
-      "CKA",
-      "CKS",
-      "OSCP",
-    ]
+    children: ["CKA", "OSCP"],
   },
 ]);

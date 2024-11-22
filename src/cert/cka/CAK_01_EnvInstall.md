@@ -429,7 +429,7 @@ node         NotReady   control-plane   4m42s   v1.31.0
 root@k8s-master:~#
 ```
 
-## 2.3、安装网络插件Calico(只在master执行)
+### 2.3、安装网络插件Calico(只在master执行)
 Calico是一个网络插件，提供高性能网络功能和网络安全策略
 
 |特性  	 |Calico 	 |Flannel 	|Cilium |
